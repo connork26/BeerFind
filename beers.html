@@ -30,6 +30,33 @@ ul
 }
 </style>
 <title>Home</title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#submit').click(function () {
+                var payload = {
+                    beerName: $('#beerName').val(),
+                    breweryID: $('#breweryID').val(),
+					ABV: $('#abv').val(),
+					style: $('#style').val(),
+					description: $('#descr').val()
+                };
+
+		console.log(payload);
+
+                $.ajax({
+                    url: "/beers",
+                    type: "POST",
+                    contentType: "application/json",
+                    processData: false,
+                    data: JSON.stringify(payload),
+                    complete: function (data) {
+                        $('#response').html(data.responseText);
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -53,7 +80,7 @@ ul
         <input id="submit" type="submit" />
     </div>
     <div id="content-response">
-    	<p>Test</p>
+    	<p id='response'>Test</p>
     </div>
     
         

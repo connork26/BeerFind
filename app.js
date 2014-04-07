@@ -1,7 +1,8 @@
 // Module dependencies
 
 var express    = require('express'),
-    mysql      = require('mysql');
+    mysql      = require('mysql'),
+	app = express();
 
 // Application initialization
 
@@ -11,7 +12,7 @@ var connection = mysql.createConnection({
         password : '3616839'
     });
     
-var app = module.exports = express.createServer();
+//var app = module.exports = express.createServer();
 
 // Database setup
 
@@ -62,6 +63,26 @@ app.post('/user', function (req, res) {
 		}
     );
 });
+
+app.post('/beers', function (req, res) {
+	console.log(req.body);
+	connection.query('INSERT INTO Beer SET ?', req.body,
+		function (err, result) {
+			if (err) throw err;
+			connection.query('SELECT beerName, beerID FROM Beer where beerName = ? ', req.body.beerName,
+			function (err, result) {
+				if (result.length > 0) {
+					res.send(result[0].beerName + ' added with beerID ' + result[0].beerID);
+				}
+				else {
+					res.send('Error: Check entry params');
+				}
+			});
+			
+		}
+	);		
+});
+				
 
 // Begin listening
 
