@@ -3,20 +3,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Home</title>
+<link href="main_style.css" rel="stylesheet"> 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#submit').click(function () {
                 var payload = {
-                    userName: $('#name').val(),
-                    password: $('#password').val(),
-					email: $('#email').val()
+                    beerName: $('#beerName').val(),
+                    breweryID: $('#breweryID').val(),
+					ABV: $('#abv').val(),
+					style: $('#style').val(),
+					description: $('#descr').val()
                 };
 
 		console.log(payload);
 
                 $.ajax({
-                    url: "/user",
+                    url: "/addBeers",
                     type: "POST",
                     contentType: "application/json",
                     processData: false,
@@ -27,12 +30,11 @@
                 });
             });
         });
-</script>
-<link href="main_style.css" rel="stylesheet"> 
+    </script>
 </head>
 
 <body>
-    <div id = "header">
+    <div id = header>
         <h1>BeerFind</h1>
         <ul>
             <li><a href="/index">Home</a></li>
@@ -40,17 +42,23 @@
             <li><a href="/beers">Beers</a></li>
         </ul>
     </div>
-    
-	<div id="content-create">
-    	<h1>Create User Account</h1>
-        <p>Name: <input id="name" type="text" /></p>
-        <p>Email: <input id="email" type="text" /></p>
-        <p>Password: <input id="password" type="password" /></p>
+
+
+    <div id="content-enter">
+    	<h1>Add a beer</h1>
+        <p>Beer Name: <input id="beerName" type="text" /></p>
+        <p>Brewery ID: <input id="breweryID" type="text" /></p>
+        <p>ABV: <input id="abv" type="text" /></p>
+        <p>Style: <input id="style" type="text" /></p>
+        <p>Description: <input id="descr" type="text" /></p>
         <input id="submit" type="submit" />
     </div>
-
-	<div id="content-response">
-    	<p id="response"></p>
+    <div id="content-response">
+    	<p id='response'></p>
     </div>
+    
+        
+
+
 </body>
 </html>

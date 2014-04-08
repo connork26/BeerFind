@@ -2,65 +2,44 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<style>
-li
-{
-	display:inline;
-}
-ul
-{
-	list-style-type:none;
-	margin:0;
-	padding:0;
-}
-#header
-{
-	text-align:center;
-	border:1px solid black;
-}
-#content-enter
-{
-	float:left;
-	width:50%;
-}
-#content-response
-{
-	float:right;
-	width:50%;
-}
-</style>
-<title>Home</title>
+<title>Untitled Document</title>
+<link href="main_style.css" rel="stylesheet"> 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#submit').click(function () {
-                var payload = {
-                    beerName: $('#beerName').val(),
-                    breweryID: $('#breweryID').val(),
-					ABV: $('#abv').val(),
-					style: $('#style').val(),
-					description: $('#descr').val()
-                };
+<script type="text/javascript">	
+	$(document).ready(function () {
+		 $.ajax({
+			url: "beers/select",
+			type: "POST",
+			contentType: "application/json",
+			processData: false,
+			complete: function (data) {
+				$('div#breweries').html(data.responseText);
+			}
+		 });
+		 
+		 $('#brewery_submit').click(function () {
+			var payload = {
+				id: $('#breweries_list').val(),
+			};
+			$.ajax({
+				url: "/beers",
+				type: "POST",
+				contentType: "application/json",
+				processData: false,
+				data: JSON.stringify(payload),
+				complete: function (data) {
+					$('table#beers_table').html(data.responseText);
+				}
+			});
+				
+		 });
+	});
 
-		console.log(payload);
-
-                $.ajax({
-                    url: "/beers",
-                    type: "POST",
-                    contentType: "application/json",
-                    processData: false,
-                    data: JSON.stringify(payload),
-                    complete: function (data) {
-                        $('#response').html(data.responseText);
-                    }
-                });
-            });
-        });
-    </script>
+</script>	
 </head>
 
 <body>
-    <div id = header>
+	<div id = header>
         <h1>BeerFind</h1>
         <ul>
             <li><a href="/index">Home</a></li>
@@ -68,23 +47,14 @@ ul
             <li><a href="/beers">Beers</a></li>
         </ul>
     </div>
-
-
-    <div id="content-enter">
-    	<h1>Add a beer</h1>
-        <p>Beer Name: <input id="beerName" type="text" /></p>
-        <p>Brewery ID: <input id="breweryID" type="text" /></p>
-        <p>ABV: <input id="abv" type="text" /></p>
-        <p>Style: <input id="style" type="text" /></p>
-        <p>Description: <input id="descr" type="text" /></p>
-        <input id="submit" type="submit" />
-    </div>
-    <div id="content-response">
-    	<p id='response'>Test</p>
+    <div id = "content">
+    	<div id="breweries">
+        </div>
+        <input type="submit" id="brewery_submit" />
+        <table id="beers_table">
+        </table>
     </div>
     
-        
-
-
+    
 </body>
 </html>

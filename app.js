@@ -24,6 +24,7 @@ var connection = mysql.createConnection({
 // Configuration
 
 app.use(express.bodyParser());
+app.use(express.static(__dirname + '/public'));
 
 // Main route sends our HTML file
 
@@ -43,8 +44,16 @@ app.get('/beers', function(req, res) {
     res.sendfile(__dirname + '/beers.html');
 });
 
-// Update MySQL database
+app.get('/addBeers', function(req, res) {
+    res.sendfile(__dirname + '/addBeers.html');
+});
 
+app.get('/beers/findbeer', function (req, res) {
+    res.sendfile(__dirname + '/find_beer.html');
+});
+	
+
+// create user
 app.post('/user', function (req, res) {
 	console.log(req.body);
     connection.query('INSERT INTO User SET ?', req.body, 
@@ -64,7 +73,8 @@ app.post('/user', function (req, res) {
     );
 });
 
-app.post('/beers', function (req, res) {
+// create beer
+app.post('/addBeers', function (req, res) {
 	console.log(req.body);
 	connection.query('INSERT INTO Beer SET ?', req.body,
 		function (err, result) {
@@ -81,6 +91,64 @@ app.post('/beers', function (req, res) {
 			
 		}
 	);		
+});
+
+// get all breweries to put in a <select>
+app.post('/beers/select', function (req, res) {
+    console.log(req.body);
+	connection.query('select * from Brewery', 
+		function (err, result) {
+			console.log(result);
+			var responseHTML = '<select id="breweries_list">';
+			for (var i=0; result.length > i; i++) {
+				var option = '<option value="' + result[i].breweryID + '">' + result[i].breweryName + '</option>';
+				console.log(option);
+				responseHTML += option;
+			}
+            responseHTML += '</select>';
+			res.send(responseHTML);			
+		});
+});
+
+//get all beers brewed by a brewery. returned in a table 
+app.post('/beers', function (req, res) {
+	console.log(req.body);
+	connection.query('select * from Beer where breweryID = ?', req.body.id, 
+		function (err, result) {
+			console.log(result);
+			if (result.length > 0) {
+				var responseHTML = '<table><tr><th>Beer Name</th><th>Style</th><tr>'
+				for(var i = 0; i < result.length; i++){
+					responseHTML += '<tr>'
+					responseHTML += '<td><a href="/beers/findbeer/?beerID=' + result[i].beerID + '">'
+						+ result[i].beerName + '<td>';
+					responseHTML += '<td>' + result[i].style + '<td>';		
+					responseHTML += '</tr>';			
+				}
+				responseHTML += '</table>';
+				res.send(responseHTML);
+			}
+			else {
+				res.send('No beers in database');	
+			}
+		}
+	);
+});
+
+app.post('/beers/getBeerInfo', function (req, res){
+	console.log(req.query.beerID);
+	connection.query('select * from Beer b natural join Brewery br where beerID = ?', req.query.beerID,
+		function (err, result) {
+			console.log(result);
+			if (result.length > 0) {
+				var responseHTML = '<p>Beer Name: ' + result[0].beerName + '</p>';
+				responseHTML = '<p>Brewery Name: ' + result[0].breweryName + '</p>';
+				responseHTML = '<p>Style: ' + result[0].style + '</p>';
+				responseHTML = '<p>ABV: ' + result[0].style + '</p>';
+				responseHTML = '<p>Description: ' + result[0].description + '</p>';
+			}
+		res.send(response.HTML);
+	});
 });
 				
 

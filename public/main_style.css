@@ -1,0 +1,28 @@
+@charset "UTF-8";
+/* CSS Document */
+
+li
+{
+	display:inline;
+}
+ul
+{
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+#header
+{
+	text-align:center;
+	border:1px solid black;
+}
+#content-create
+{
+	float:left;
+	width:50%;
+}
+#content-response
+{
+	float:right;
+	width:50%;
+}
