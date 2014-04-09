@@ -1,6 +1,14 @@
 @charset "UTF-8";
 /* CSS Document */
 
+body
+{
+	background:#000;
+	font-family: 'Roboto', sans-serif;
+	color:#FFF;
+	margin:20px;
+	
+}
 li
 {
 	display:inline;
@@ -15,6 +23,12 @@ ul
 {
 	text-align:center;
 	border:1px solid black;
+	background-image:url(beerBackground.jpeg);
+	width:inherit;
+	color:#000;
+}
+#content{
+	padding: 10px;
 }
 #content-create
 {

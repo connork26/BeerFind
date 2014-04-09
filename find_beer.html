@@ -8,10 +8,14 @@
 <script>
 	$(document).ready(function () {
 		$ajax({
+			//var payload = {
+			//		id: fggh
+			//};
 			url: "beers/getBeerInfo",
 			type: "POST",
 			contentType: "application/json",
 			processData: false,
+			data: JSON.stringify(payload),
 			complete: function (data) {
 				$('div#beerInfo').html(data.responseText);
 			}
