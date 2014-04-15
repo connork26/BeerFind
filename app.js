@@ -46,19 +46,24 @@ app.get('/index', function(req, res) {
 });
 
 app.get('/user', function(req, res) {
-    res.sendfile(__dirname + '/user.html');
+    console.log("user requested");
+    res.render('user');
+    //res.sendfile(__dirname + '/user.html');
 });
 
 app.get('/beers', function(req, res) {
-    res.sendfile(__dirname + '/beers.html');
+    console.log("beers requested");
+    res.render('beers');
+    //res.sendfile(__dirname + '/beers.html');
 });
 
 app.get('/addBeers', function(req, res) {
-    res.sendfile(__dirname + '/addBeers.html');
+    res.render('addBeers');
+    // res.sendfile(__dirname + '/addBeers.html');
 });
 
-app.get('/lab18', function (req, res ) {
-	res.render('lab18'); 
+app.get('/breweries', function (req, res ) {
+	res.render('breweries');
 });
 	
 
@@ -141,7 +146,7 @@ app.post('/beersfrombrewery', function (req, res) {
 				var responseHTML = '<table><tr><th>Beer Name</th><th>Style</th><tr>'
 				for(var i = 0; i < result.length; i++){
 					responseHTML += '<tr>'
-					responseHTML += '<td><a href="/beers/getBeerInfo/?beerID=' + result[i].beerID + '">'
+					responseHTML += '<td><a href="/getBeerInfo/?beerID=' + result[i].beerID + '">'
 						+ result[i].beerName + '<td>';
 					responseHTML += '<td>' + result[i].style + '<td>';		
 					responseHTML += '</tr>';			
@@ -165,7 +170,7 @@ app.post('/beersfromstyle', function (req, res){
 				var responseHTML = '<table><tr><th>Beer Name</th><th>Style</th><tr>'
 				for(var i = 0; i < result.length; i++){
 					responseHTML += '<tr>'
-					responseHTML += '<td><a href="/beers/getBeerInfo/?beerID=' + result[i].beerID + '">'
+					responseHTML += '<td><a href="/getBeerInfo/?beerID=' + result[i].beerID + '">'
 						+ result[i].beerName + '<td>';
 					responseHTML += '<td>' + result[i].style + '<td>';		
 					responseHTML += '</tr>';			
@@ -179,7 +184,7 @@ app.post('/beersfromstyle', function (req, res){
 		});
 });
 
-app.get('/beers/getBeerInfo/', function (req, res){
+app.get('/getBeerInfo/', function (req, res){
 	console.log(req.query.beerID);
 	connection.query('select * from Beer b natural join Brewery br where beerID = ?', req.query.beerID,
 		function (err, result) {

@@ -1,5 +1,82 @@
 <% include header %>
-<div id = "content">
 
+<div id="content">
+    <div id="breweries-wrap">
+        <div id="breweries">
+        </div>
+        <input type="submit" id="brewery_submit" />
+    </div>
+    <div id="styles-wrap">
+        <div id="styles">
+        </div>
+        <input type="submit" id="style_submit" />
+    </div>
+    <table id="beers_table">
+    </table>
 </div>
+
+
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //get all breweries
+        $.ajax({
+            url: "beers/selectbrewery",
+            type: "POST",
+            contentType: "application/json",
+            processData: false,
+            complete: function (data) {
+                $('div#breweries').html(data.responseText);
+            }
+        });
+        // get all styles
+        $.ajax({
+            url: "beers/selectstyle",
+            type: "POST",
+            contentType: "application/json",
+            processData: false,
+            complete: function (data) {
+                $('div#styles').html(data.responseText);
+            }
+        });
+
+        $('#brewery_submit').click(
+                function () {
+                    var payload = {
+                        id: $('#breweries_list').val()
+                    };
+                    $.ajax({
+                        url: "/beersfrombrewery",
+                        type: "POST",
+                        contentType: "application/json",
+                        processData: false,
+                        data: JSON.stringify(payload),
+                        complete: function (data) {
+                            $('table#beers_table').html(data.responseText);
+                        }
+                    });
+
+                    $('#style_submit').click(
+                            function () {
+                                var payload = {
+                                    style: $('#styles_list').val()
+                                }
+                                $.ajax({
+                                    url: "/beersfromstyle",
+                                    type: "POST",
+                                    contentType: "application/json",
+                                    processData: false,
+                                    data: JSON.stringify(payload),
+                                    complete: function (data) {
+                                        $('table#beers_table').html(data.responseText);
+                                    }
+                                });
+                            }
+                    );
+
+                });
+    });
+
+</script>
 <% include footer %>

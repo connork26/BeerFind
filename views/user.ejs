@@ -1,0 +1,42 @@
+<% include header %>
+
+<div id="content">
+    <div id="content-create">
+        <h1>Create User Account</h1>
+        <p>Name: <input id="name" type="text" /></p>
+        <p>Email: <input id="email" type="text" /></p>
+        <p>Password: <input id="password" type="password" /></p>
+        <input id="submit" type="submit" />
+    </div>
+
+    <div id="content-response">
+        <p id="response"></p>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#submit').click(function () {
+            var payload = {
+                userName: $('#name').val(),
+                password: $('#password').val(),
+                email: $('#email').val()
+            };
+
+            console.log(payload);
+
+            $.ajax({
+                url: "/user",
+                type: "POST",
+                contentType: "application/json",
+                processData: false,
+                data: JSON.stringify(payload),
+                complete: function (data) {
+                    $('#response').html(data.responseText);
+                }
+            });
+        });
+    });
+</script>
+<% include footer %>
