@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Home</title>
-<link href="main_style.css" rel="stylesheet"> 
+<link href="style.css" rel="stylesheet"> 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -34,27 +34,35 @@
 </head>
 
 <body>
-    <div id = header>
-        <h1>BeerFind</h1>
-        <ul>
-            <li><a href="/index">Home</a></li>
-            <li><a href="/user">User</a></li>
-            <li><a href="/beers">Beers</a></li>
+    <div id = "header">
+    	<div id="logo">
+        	<h1>BeerFind</h1>
+        </div>
+    </div>
+    <div id="menu-wrap">
+    	<div id="menu">
+        <ul class="first">
+            <li><a href="./index">Home</a></li>
+            <li><a href="./user">User</a></li>
+            <li><a href="./beers">Beers</a></li>
         </ul>
+        </div>
     </div>
-
-
-    <div id="content-enter">
-    	<h1>Add a beer</h1>
-        <p>Beer Name: <input id="beerName" type="text" /></p>
-        <p>Brewery ID: <input id="breweryID" type="text" /></p>
-        <p>ABV: <input id="abv" type="text" /></p>
-        <p>Style: <input id="style" type="text" /></p>
-        <p>Description: <input id="descr" type="text" /></p>
-        <input id="submit" type="submit" />
-    </div>
-    <div id="content-response">
-    	<p id='response'></p>
+	<div id="content-wrap">
+        <div id="content">
+            <div id="content-enter">
+                <h1>Add a beer</h1>
+                <p>Beer Name: <input id="beerName" type="text" /></p>
+                <p>Brewery ID: <input id="breweryID" type="text" /></p>
+                <p>ABV: <input id="abv" type="text" /></p>
+                <p>Style: <input id="style" type="text" /></p>
+                <p>Description: <input id="descr" type="text" /></p>
+                <input id="submit" type="submit" />
+            </div>
+            <div id="content-response">
+                <p id='response'></p>
+            </div>
+        </div>
     </div>
     
         

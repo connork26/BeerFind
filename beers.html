@@ -3,12 +3,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Untitled Document</title>
-<link href="main_style.css" rel="stylesheet"> 
+<link href="style.css" rel="stylesheet"> 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript">	
 	$(document).ready(function () {
+		 //get all breweries
 		 $.ajax({
-			url: "beers/select",
+			url: "beers/selectbrewery",
 			type: "POST",
 			contentType: "application/json",
 			processData: false,
@@ -16,43 +17,87 @@
 				$('div#breweries').html(data.responseText);
 			}
 		 });
-		 
-		 $('#brewery_submit').click(function () {
-			var payload = {
-				id: $('#breweries_list').val(),
-			};
-			$.ajax({
-				url: "/beers",
-				type: "POST",
-				contentType: "application/json",
-				processData: false,
-				data: JSON.stringify(payload),
-				complete: function (data) {
-					$('table#beers_table').html(data.responseText);
-				}
+		// get all styles 
+		$.ajax({
+			url: "beers/selectstyle",
+			type: "POST",
+			contentType: "application/json",
+			processData: false,
+			complete: function (data) {
+				$('div#styles').html(data.responseText);
+			}
+		});
+			 
+		$('#brewery_submit').click(
+			function () {
+				var payload = {
+					id: $('#breweries_list').val()	
+				};
+				$.ajax({
+					url: "/beersfrombrewery",
+					type: "POST",
+					contentType: "application/json",
+					processData: false,
+					data: JSON.stringify(payload),
+					complete: function (data) {
+						$('table#beers_table').html(data.responseText);
+					}
 			});
+			
+		$('#style_submit').click(
+			function () {
+				var payload = {
+					style: $('#styles_list').val()
+				}
+				$.ajax({
+					url: "/beersfromstyle",
+					type: "POST",
+					contentType: "application/json",
+					processData: false,
+					data: JSON.stringify(payload),
+					complete: function (data) {
+						$('table#beers_table').html(data.responseText);
+					}
+				});
+			}
+		);
 				
-		 });
+	});
 	});
 
 </script>	
 </head>
 
 <body>
-	<div id = header>
-        <h1>BeerFind</h1>
-        <ul>
+	<div id = "header">
+    	<div id="logo">
+        	<h1>BeerFind</h1>
+        </div>
+    </div>
+    <div id="menu-wrap">
+    	<div id="menu">
+        <ul class="first">
             <li><a href="/index">Home</a></li>
             <li><a href="/user">User</a></li>
             <li><a href="/beers">Beers</a></li>
         </ul>
-    </div>
-    <div id = "content">
-    	<div id="breweries">
         </div>
-        <input type="submit" id="brewery_submit" />
-        <table id="beers_table">
-        </table>
+    </div>
+	<div id="content-wrap">
+        <div id="content">
+            <div id="breweries-wrap">
+                <div id="breweries">
+                </div>
+                <input type="submit" id="brewery_submit" />
+            </div>
+            <div id="styles-wrap">
+                <div id="styles">
+                </div>
+                <input type="submit" id="style_submit" />
+            </div>
+            <table id="beers_table">
+            </table>
+        </div>
     </div>
     
     

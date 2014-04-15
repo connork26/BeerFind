@@ -1,0 +1,15 @@
+<% include header %>
+<div id="content">
+    <div id="beerInfo">
+        <h1><%= rs[0].beerName %></h1>
+        <div style="float: left">
+            <p>Brewery: <%= rs[0].breweryName %></p>
+            <p>Style: <%= rs[0].style %></p>
+            <p>ABV: <%= rs[0].abv %></p>
+        </div>
+        <div style="float: right">
+            <p>Description: <%= rs[0].description%></p>
+        </div>
+    </div>
+</div>
+<% include footer %>
