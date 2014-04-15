@@ -1,0 +1,13 @@
+<% include header%>
+<div id ="content">
+    <h1><%= rs[0].breweryName %></h1>
+    <ul class="info">
+        <li>
+            <p>Address: <%= rs[0].street%>, <%= rs[0].city%> <%= rs[0].state%></p>
+        </li>
+        <li>
+            <p>Rating</p>
+        </li>
+    </ul>
+</div>
+<% include footer %>

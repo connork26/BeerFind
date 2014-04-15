@@ -146,9 +146,9 @@ app.post('/beersfrombrewery', function (req, res) {
 				var responseHTML = '<table><tr><th>Beer Name</th><th>Style</th><tr>'
 				for(var i = 0; i < result.length; i++){
 					responseHTML += '<tr>'
-					responseHTML += '<td><a href="/getBeerInfo/?beerID=' + result[i].beerID + '">'
-						+ result[i].beerName + '<td>';
-					responseHTML += '<td>' + result[i].style + '<td>';		
+					responseHTML += '<td><a href="/getBeerInfo?beerID=' + result[i].beerID + '">'
+						+ result[i].beerName + '</td>';
+					responseHTML += '<td>' + result[i].style + '</td>';
 					responseHTML += '</tr>';			
 				}
 				responseHTML += '</table>';
@@ -170,9 +170,9 @@ app.post('/beersfromstyle', function (req, res){
 				var responseHTML = '<table><tr><th>Beer Name</th><th>Style</th><tr>'
 				for(var i = 0; i < result.length; i++){
 					responseHTML += '<tr>'
-					responseHTML += '<td><a href="/getBeerInfo/?beerID=' + result[i].beerID + '">'
-						+ result[i].beerName + '<td>';
-					responseHTML += '<td>' + result[i].style + '<td>';		
+					responseHTML += '<td><a href="/getBeerInfo?beerID=' + result[i].beerID + '">'
+						+ result[i].beerName + '</td>';
+					responseHTML += '<td>' + result[i].style + '</td>';
 					responseHTML += '</tr>';			
 				}
 				responseHTML += '</table>';
@@ -184,13 +184,40 @@ app.post('/beersfromstyle', function (req, res){
 		});
 });
 
-app.get('/getBeerInfo/', function (req, res){
+app.get('/getBeerInfo', function (req, res){
 	console.log(req.query.beerID);
 	connection.query('select * from Beer b natural join Brewery br where beerID = ?', req.query.beerID,
 		function (err, result) {
 			console.log(result);
 		    res.render('beerInfo', {rs: result});
 	});
+});
+
+app.get('/breweryTable', function (req, res){
+    console.log('brewery table');
+    connection.query('select * from Brewery', function (err, result) {
+        var html = '<table>';
+            html = '<tr><th>Brewery</th><th>City</th><th>State</th></tr>';
+        for (var i = 0; i < result.length; i++){
+            html += '<tr>'
+            html += '<td> <a href="/breweryInfo?breweryID=' + result[i].breweryID + '">' + result[i].breweryName + '</a></td>';
+            html += '<td>' + result[i].city + '</td>';
+            html += '<td>' + result[i].state + '</td>';
+            html += '</tr>';
+        }
+        html += '</table>';
+        res.send(html);
+    });
+});
+
+app.get('/breweryInfo', function (req, res){
+    console.log(req.query.breweryID);
+    connection.query('select * from Brewery where breweryID = ?', req.query.breweryID,
+        function (err, result){
+            console.log(result);
+            res.render('breweryInfo', {rs: result});
+        }
+    );
 });
 				
 

@@ -1,5 +1,22 @@
 <% include header %>
     <div id="content">
-        breweries
+        <div id = "breweryWrapper">
+        </div>
     </div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready( function () {
+        $.ajax ({
+            url: "/breweryTable",
+            type : "GET",
+            contentType: "application/json",
+            processData: false,
+            complete: function (data) {
+                $('div#breweryWrapper').html(data.responseText);
+                console.log('complete')
+            }
+        });
+    });
+</script>
 <% include footer %>

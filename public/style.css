@@ -17,6 +17,8 @@ form {
 
 input, textarea {
 	padding: 2px 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
 	font: normal 1em "Trebuchet MS", Arial, Helvetica, sans-serif;
 	color: #333333;
 }
@@ -55,6 +57,23 @@ a {
 	color: #CC6B47;
 }
 
+table
+{
+    padding: 10px;
+    margin: 10px;
+}
+
+table, th, td
+{
+    border: 3px solid #333333;
+    border-collapse: collapse;
+}
+
+
+th, td
+{
+    padding: 10px;
+}
 a:hover {
 	text-decoration: none;
 	color: #3760BF;
@@ -177,6 +196,12 @@ a:hover {
 #content p {
 	margin: 0;
 	padding-bottom: 15px;
+}
+
+#content ul.info {
+    list-style-type:none;
+    margin:0;
+    padding:0;
 }
 
 /* Footer */

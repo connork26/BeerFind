@@ -2,10 +2,12 @@
 <div id="content">
     <div id="beerInfo">
         <h1><%= rs[0].beerName %></h1>
-        <div style="float: left">
-            <p>Brewery: <%= rs[0].breweryName %></p>
-            <p>Style: <%= rs[0].style %></p>
-            <p>ABV: <%= rs[0].abv %></p>
+        <div>
+            <ul class = "info">
+                <li><p>Brewery: <%= rs[0].breweryName %></p></li>
+                <li><p>Style: <%= rs[0].style %></p></li>
+                <li><p>ABV: <%= rs[0].abv %></p></li>
+            </ul>
         </div>
         <div style="float: right">
             <p>Description: <%= rs[0].description%></p>
