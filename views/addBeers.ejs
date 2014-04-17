@@ -20,7 +20,7 @@
     $(document).ready(function () {
         //get all breweries in a select
         $.ajax({
-            url: "beers/selectbrewery",
+            url: "/breweries/selectbrewery",
             type: "POST",
             contentType: "application/json",
             processData: false,
@@ -41,7 +41,7 @@
             console.log(payload);
 
             $.ajax({
-                url: "/addBeers",
+                url: "/beers/addBeers",
                 type: "POST",
                 contentType: "application/json",
                 processData: false,

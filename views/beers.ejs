@@ -22,7 +22,7 @@
     $(document).ready(function () {
         //get all breweries
         $.ajax({
-            url: "beers/selectbrewery",
+            url: "/beers/selectbrewery",
             type: "POST",
             contentType: "application/json",
             processData: false,
@@ -32,7 +32,7 @@
         });
         // get all styles
         $.ajax({
-            url: "beers/selectstyle",
+            url: "/beers/selectstyle",
             type: "POST",
             contentType: "application/json",
             processData: false,
@@ -44,10 +44,10 @@
         $('#brewery_submit').click(
                 function () {
                     var payload = {
-                        id: $('#breweries_list').val()
+                        breweryID: $('#breweries_list').val()
                     };
                     $.ajax({
-                        url: "/beersfrombrewery",
+                        url: "/beers/beersfrombrewery",
                         type: "POST",
                         contentType: "application/json",
                         processData: false,
@@ -56,26 +56,27 @@
                             $('table#beers_table').html(data.responseText);
                         }
                     });
+                }
+        );
 
-                    $('#style_submit').click(
-                            function () {
-                                var payload = {
-                                    style: $('#styles_list').val()
-                                }
-                                $.ajax({
-                                    url: "/beersfromstyle",
-                                    type: "POST",
-                                    contentType: "application/json",
-                                    processData: false,
-                                    data: JSON.stringify(payload),
-                                    complete: function (data) {
-                                        $('table#beers_table').html(data.responseText);
-                                    }
-                                });
-                            }
-                    );
-
+        $('#style_submit').click(
+            function () {
+                var payload = {
+                    style: $('#styles_list').val()
+                }
+                $.ajax({
+                    url: "/beers/beersfromstyle",
+                    type: "POST",
+                    contentType: "application/json",
+                    processData: false,
+                    data: JSON.stringify(payload),
+                    complete: function (data) {
+                        $('table#beers_table').html(data.responseText);
+                    }
                 });
+            }
+        );
+
     });
 
 </script>
