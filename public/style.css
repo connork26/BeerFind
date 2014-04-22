@@ -36,6 +36,10 @@ h1 {
 	font-size: 2em;
 }
 
+h1.name {
+    text-align: center;
+}
+
 h2 {
 	font-size: 1.4em;
 }
@@ -77,6 +81,41 @@ th, td
 a:hover {
 	text-decoration: none;
 	color: #3760BF;
+}
+
+ul.info, ul.userInfo, ul.userList {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    line-height: normal;
+    text-align: center;
+}
+
+ul.info li, ul.userInfo li, ul.userList li {
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid #CC6B47;
+}
+
+ul.info li, ul.userInfo li {
+    height: 110px;
+    display: inline;
+    float: left;
+}
+
+ul.userList li {
+    width: auto;
+}
+ul.info li {
+    width: 240px;
+}
+
+ul.userInfo li {
+    width: 389px;
+}
+
+ul.info li.first {
+    padding-left: 0;
 }
 
 /* Header */
@@ -189,7 +228,7 @@ a:hover {
 }
 
 #content h1 {
-	margin: 0;
+	margin: 5px 5px;
 	padding: 0;
 }
 

@@ -4,10 +4,9 @@ var express = require('express'),
 
 router.get('/', function(req, res) {
     console.log("user requested");
-    res.render('user');
+    res.render('users');
 });
 
-// create user
 router.post('/createUser', function (req, res) {
     console.log(req.body);
     db.createUser(req.body,
@@ -20,7 +19,27 @@ router.post('/createUser', function (req, res) {
             }
         }
     );
-
 });
+
+router.post('/userList', function (req, res) {
+    console.log("get all users");
+    db.getUsers(
+        function (err, result) {
+            console.log(result);
+            var html = '<ul class="userList">';
+            html += '<li>Name</li>'
+            for (var i = 0; i < result.length; i++) {
+                html += '<li><a href="/users/userInfo?userId=' + result[i].userID + '">'
+                    + result[i].userName + '</a></li>';
+            }
+            html += '<ul>';
+            res.send(html);
+        }
+    )
+});
+
+router.get('/userInfo', function (req, res){
+    res.render('userInfo');
+})
 
 module.exports = router;

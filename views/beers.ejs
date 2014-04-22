@@ -42,21 +42,21 @@
         });
 
         $('#brewery_submit').click(
-                function () {
-                    var payload = {
-                        breweryID: $('#breweries_list').val()
-                    };
-                    $.ajax({
-                        url: "/beers/beersfrombrewery",
-                        type: "POST",
-                        contentType: "application/json",
-                        processData: false,
-                        data: JSON.stringify(payload),
-                        complete: function (data) {
-                            $('table#beers_table').html(data.responseText);
-                        }
-                    });
-                }
+            function () {
+                var payload = {
+                    breweryID: $('#breweries_list').val()
+                };
+                $.ajax({
+                    url: "/beers/beersfrombrewery",
+                    type: "POST",
+                    contentType: "application/json",
+                    processData: false,
+                    data: JSON.stringify(payload),
+                    complete: function (data) {
+                        $('table#beers_table').html(data.responseText);
+                    }
+                });
+            }
         );
 
         $('#style_submit').click(

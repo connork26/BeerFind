@@ -1,13 +1,40 @@
 <% include header%>
 <div id ="content">
-    <h1><%= rs[0].breweryName %></h1>
+    <h1 class="name"><%= rs[0].breweryName %></h1>
     <ul class="info">
-        <li>
-            <p>Address: <%= rs[0].street%>, <%= rs[0].city%> <%= rs[0].state%></p>
+        <li class="first">
+            <p>Address: <%= rs[0].street %>, <%= rs[0].city%> <%= rs[0].state%></p>
         </li>
         <li>
-            <p>Rating</p>
+            <p>test</p>
+        </li>
+        <li>
+            <p>Rating: <span id="rating"></span></p>
         </li>
     </ul>
+    <div id = "comments">
+        <p>test</p>
+    </div>
 </div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var payload = {
+          breweryID: "<%= rs[0].breweryID %>"
+        };
+
+        $.ajax({
+            url: "/breweries/breweryRating",
+            type: "POST",
+            contentType: "application/json",
+            processData: false,
+            data: JSON.stringify(payload),
+            complete: function (data){
+                console.log(data.responseText.toString());
+                $('span#rating').html(data.responseText.toString());
+            }
+        });
+    });
+</script>
 <% include footer %>

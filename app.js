@@ -25,7 +25,7 @@ app.set('views', __dirname + '/views');
 app.use('/', routes);
 app.use('/beers', beers);
 app.use('/breweries', breweries);
-app.use('/user', users);
+app.use('/users', users);
 
 app.listen(8124, "127.0.0.1");
 console.log("Express server listening");

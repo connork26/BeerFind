@@ -1,22 +1,32 @@
 <% include header %>
 
 <div id="content">
-    <div id="content-create">
-        <h1>Create User Account</h1>
-        <p>Name: <input id="name" type="text" /></p>
-        <p>Email: <input id="email" type="text" /></p>
-        <p>Password: <input id="password" type="password" /></p>
-        <input id="submit" type="submit" />
-    </div>
+    <h1>Create User Account</h1>
+    <p>Name: <input id="name" type="text" /></p>
+    <p>Email: <input id="email" type="text" /></p>
+    <p>Password: <input id="password" type="password" /></p>
+    <input id="submit" type="submit" />
 
-    <div id="content-response">
-        <p id="response"></p>
-    </div>
+    <div id="userList"></div>
 </div>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        $(document).ready(loadUsers ());
+
+        function loadUsers () {
+            $.ajax ({
+                url: '/users/userList',
+                type: 'POST',
+                contentType: "application/json",
+                processData: false,
+                complete: function (data) {
+                    $('#userList').html(data.responseText);
+                }
+            })
+        }
+
         $('#submit').click(function () {
             var payload = {
                 userName: $('#name').val(),
@@ -36,6 +46,7 @@
                     $('#response').html(data.responseText);
                 }
             });
+            loadUsers();
         });
     });
 </script>

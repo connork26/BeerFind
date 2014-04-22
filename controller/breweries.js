@@ -29,7 +29,7 @@ router.get('/breweryTable', function (req, res){
             html = '<tr><th>Brewery</th><th>City</th><th>State</th></tr>';
             for (var i = 0; i < result.length; i++){
                 html += '<tr>'
-                html += '<td> <a href="/breweryInfo?breweryID=' + result[i].breweryID + '">' + result[i].breweryName + '</a></td>';
+                html += '<td> <a href="/breweries/breweryInfo?breweryID=' + result[i].breweryID + '">' + result[i].breweryName + '</a></td>';
                 html += '<td>' + result[i].city + '</td>';
                 html += '<td>' + result[i].state + '</td>';
                 html += '</tr>';
@@ -50,5 +50,16 @@ router.get('/breweryInfo', function (req, res){
         }
     );
 });
+
+router.post('/breweryRating', function (req, res){
+    console.log("getting average rating for breweryID " + req.body.breweryID);
+    db.getBreweryAverageRating(req.body.breweryID,
+        function (err, result){
+            console.log(result[0].average);
+            res.send(result[0].average.toString());
+        }
+    );
+})
+
 
 module.exports = router;

@@ -119,4 +119,14 @@ router.get('/getBeerInfo', function (req, res){
     );
 });
 
+router.post('/beerRating', function (req, res){
+    console.log("getting average rating for beerID " + req.body.beerID);
+    db.getBeerAverageRating(req.body.beerID,
+        function (err, result){
+            console.log(result[0].average);
+            res.send(result[0].average.toString());
+        }
+    );
+})
+
 module.exports = router;

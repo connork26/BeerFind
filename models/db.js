@@ -135,3 +135,40 @@ exports.createUser = function (body, callback) {
         }
     );
 }
+
+exports.getBreweryAverageRating = function (breweryID, callback) {
+    connection.query('select avg(rating) as average from BreweryRatings where breweryID = ?', breweryID,
+    function (err, result){
+        if (err) {
+            console.log(err);
+            callback(true);
+            return;
+        }
+        callback(false, result);
+    });
+}
+
+exports.getBeerAverageRating = function (beerID, callback) {
+    connection.query('select avg(rating) as average from BeerRatings where beerID = ?', beerID,
+    function (err, result) {
+        if (err) {
+            console.log(err);
+            callback(true);
+            return;
+        }
+        callback(false, result);
+    });
+}
+
+exports.getUsers = function (callback){
+    connection.query('select * from User',
+        function (err, result) {
+            if (err) {
+                console.log(err);
+                callback(true);
+                return;
+            }
+            callback(false, result);
+        }
+    )
+}
