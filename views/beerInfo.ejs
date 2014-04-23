@@ -2,22 +2,22 @@
 <div id="content">
     <div id="beerInfo">
         <h1 class="name"><%= rs[0].beerName %></h1>
-        <div>
-            <ul class = "info">
-                <li class="first">
-                    <p>Brewery: <%= rs[0].breweryName %></p>
-                    <p>Style: <%= rs[0].style %></p>
-                    <p>ABV: <%= rs[0].abv %></p>
-                </li>
-                <li>
-                    <p>Description: <%= rs[0].description%></p>
-                </li>
-                <li>
-                    <p>Rating: <span id = "rating"></span></p>
-                </li>
-            </ul>
-        </div>
-        <div id="comments">test</div>
+
+        <ul class = "info">
+            <li class="first">
+                <p>Brewery: <%= rs[0].breweryName %></p>
+                <p>Style: <%= rs[0].style %></p>
+                <p>ABV: <%= rs[0].abv %></p>
+            </li>
+            <li>
+                <p>Description: <%= rs[0].description%></p>
+            </li>
+            <li>
+                <p>Rating: <span id = "rating"></span></p>
+            </li>
+        </ul>
+        <h2>Comments:</h2>
+        <div id="comments"></div>
     </div>
 </div>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -36,6 +36,17 @@
             complete: function (data){
                 console.log(data.responseText.toString());
                 $('span#rating').html(data.responseText.toString());
+            }
+        });
+
+        $.ajax({
+            url: "/beers/beerComments",
+            type: "POST",
+            contentType: "application/json",
+            processData: false,
+            data: JSON.stringify(payload),
+            complete: function (data){
+                $('div#comments').html(data.responseText);
             }
         });
     });

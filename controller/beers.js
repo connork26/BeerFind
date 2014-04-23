@@ -129,4 +129,22 @@ router.post('/beerRating', function (req, res){
     );
 })
 
+router.post('/beerComments', function (req, res){
+    console.log('getting beer comments for beerId' + req.body.beerId);
+    db.getCommentsOnABeer(req.body.beerID,
+        function (err, result){
+            var responseHTML = '<table>';
+            responseHTML += '<tr><th>User</th><th>Comment</th></tr>'
+            for (var i = 0; i < result.length; i++){
+                responseHTML += '<tr>';
+                responseHTML += '<td>' + result[i].userName + '</td>';
+                responseHTML += '<td>' + result[i].comment + '</td>';
+                responseHTML += '</tr>';
+            }
+            responseHTML += '</table>'
+            res.send(responseHTML);
+        }
+    );
+})
+
 module.exports = router;

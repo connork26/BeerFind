@@ -1,3 +1,32 @@
 <% include header%>
-    <h1>User Info</h1>
+<div id="content">
+    <h1 class="name"><%= rs[0].userName %></h1>
+    <p><%= rs[0].email %></p>
+    <p>Enter New Password: <input type="password" id="newPassword"/></p>
+    <input  type="submit" id="submit"/>
+    <div id="result"></div>
+</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(
+        $('#submit').click( function () {
+            var payload = {
+                newPassword: $('#newPassword').val(),
+                userID: "<%= rs[0].userID %>"
+            }
+
+            $.ajax ({
+                url: "/users/changePassword",
+                type: "POST",
+                contentType: "application/json",
+                processData: false,
+                data: JSON.stringify(payload),
+                complete: function (data){
+                    $('#result').html(data.responseText);
+                }
+            })
+        })
+    )
+</script>
 <% include footer %>

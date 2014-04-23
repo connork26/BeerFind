@@ -12,9 +12,7 @@
             <p>Rating: <span id="rating"></span></p>
         </li>
     </ul>
-    <div id = "comments">
-        <p>test</p>
-    </div>
+    <div id = "comments"></div>
 </div>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -33,6 +31,17 @@
             complete: function (data){
                 console.log(data.responseText.toString());
                 $('span#rating').html(data.responseText.toString());
+            }
+        });
+
+        $.ajax({
+            url: "/breweries/breweryComments",
+            type: "POST",
+            contentType: "application/json",
+            processData: false,
+            data: JSON.stringify(payload),
+            complete: function (data){
+                $('div#comments').html(data.responseText);
             }
         });
     });

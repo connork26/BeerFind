@@ -172,3 +172,56 @@ exports.getUsers = function (callback){
         }
     )
 }
+
+exports.getUserInfo = function (userID, callback) {
+    connection.query('select * from User where userID = ?', userID,
+        function (err, result) {
+            if (err) {
+                console.log(err);
+                callback(true);
+                return;
+            }
+            callback(false, result);
+        }
+    );
+}
+
+exports.changeUserPassword = function (userID, newPassword, callback) {
+    var query = "update User set password = '" + newPassword + "' where userID = " + userID;
+    connection.query(query,
+        function (err, result){
+            if (err) {
+                console.log(err);
+                callback(true);
+                return;
+            }
+            callback(false, result);
+        }
+    );
+}
+
+exports.getCommentsOnABeer = function (beerID, callback) {
+    connection.query("select * from commentsOnABeer where beerID = ?", beerID,
+        function (err, result) {
+            if (err) {
+                console.log(err);
+                callback(true);
+                return;
+            }
+            callback(false, result);
+        }
+    );
+}
+
+exports.getCommentsOnABrewery = function (breweryID, callback) {
+    connection.query("select * from commentsOnABrewery where breweryID = ?", breweryID,
+        function (err, result) {
+            if (err) {
+                console.log(err);
+                callback(true);
+                return;
+            }
+            callback(false, result);
+        }
+    );
+}

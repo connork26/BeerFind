@@ -39,7 +39,20 @@ router.post('/userList', function (req, res) {
 });
 
 router.get('/userInfo', function (req, res){
-    res.render('userInfo');
+    db.getUserInfo(req.query.userId,
+        function(err, result) {
+            console.log(result);
+            res.render('userInfo', {rs: result});
+        }
+    );
+})
+
+router.post('/changePassword', function (req, res){
+    db.changeUserPassword(req.body.userID, req.body.newPassword,
+        function() {
+            res.send('<p style="color: green">Password Changed Successfuly!</p>')
+        }
+    );
 })
 
 module.exports = router;
