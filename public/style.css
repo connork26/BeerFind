@@ -104,14 +104,15 @@ ul.info li, ul.userInfo li {
 }
 
 ul.userList li {
-    width: auto;
+    width: 120px;
 }
 ul.info li {
     width: 240px;
 }
 
 ul.userInfo li {
-    width: 389px;
+    width: 47%;
+    display: inline;
 }
 
 ul.info li.first {

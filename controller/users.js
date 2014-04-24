@@ -55,4 +55,12 @@ router.post('/changePassword', function (req, res){
     );
 })
 
+router.get('/deleteUser', function (req, res){
+    console.log("deleting user " + req.query.userID);
+    db.deleteUser(req.query.userID,
+        function(err, result){
+    });
+    res.render('users');
+})
+
 module.exports = router;

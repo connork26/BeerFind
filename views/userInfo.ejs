@@ -1,10 +1,17 @@
 <% include header%>
 <div id="content">
     <h1 class="name"><%= rs[0].userName %></h1>
-    <p><%= rs[0].email %></p>
-    <p>Enter New Password: <input type="password" id="newPassword"/></p>
-    <input  type="submit" id="submit"/>
-    <div id="result"></div>
+    <ul class="userInfo">
+        <li>
+            <h2><%= rs[0].email %></h2>
+        </li>
+        <li>
+            <p>Enter New Password: <input type="password" id="newPassword"/></p>
+            <input  type="submit" id="submit"/>
+            <div id="result"></div>
+        </li>
+    </ul>
+    <h3><a href="/users/deleteUser?userID=<%= rs[0].userID%>">Delete <%= rs[0].userName%> and all comments and ratings by them</a></h3>
 </div>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>

@@ -225,3 +225,51 @@ exports.getCommentsOnABrewery = function (breweryID, callback) {
         }
     );
 }
+
+exports.deleteUser = function (userID, callback){
+    connection.query("delete from BeerComments where userID = ?", userID,
+        function (err, result) {
+            if (err) {
+                console.log(err);
+                callback(true);
+                return;
+            }
+        }
+    );
+    connection.query("delete from BeerRatings where userID = ?", userID,
+        function (err, result) {
+            if (err) {
+                console.log(err);
+                callback(true);
+                return;
+            }
+        }
+    );
+    connection.query("delete from BreweryComments where userID = ?", userID,
+        function (err, result) {
+            if (err) {
+                console.log(err);
+                callback(true);
+                return;
+            }
+        }
+    );
+    connection.query("delete from BreweryRatings where userID = ?", userID,
+        function (err, result) {
+            if (err) {
+                console.log(err);
+                callback(true);
+                return;
+            }
+        }
+    );
+    connection.query("delete from User where userID = ?", userID,
+        function (err, result) {
+            if (err) {
+                console.log(err);
+                callback(true);
+                return;
+            }
+        }
+    );
+}
