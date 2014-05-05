@@ -136,7 +136,6 @@ ul.info li.first {
 #logo h1, #logo h2 {
 	margin: 0;
 	letter-spacing: -0.05em;
-	text-transform: lowercase;
 	font-weight: normal;
 	color: #FFFFFF;
 }
@@ -224,6 +223,7 @@ ul.info li.first {
 
 #content {
 	width: 778px;
+    min-height: 400px;
 	margin: 0 auto;
 	padding: 10px 0 20px 0;
 }
@@ -260,42 +260,7 @@ ul.info li.first {
 	color: #666666;
 }
 
-/* Sidebar */
-
-#sidebar {
-    width: 778px;
-    margin: 0 auto;
-}
-
-#sidebar ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-#sidebar li {
-    float: left;
-    width: 259px;
-}
-
-#sidebar li ul {
-    padding-left: 20px;
-}
-
-#sidebar li li {
-    float: none;
-    width: auto;
-    padding: 3px 0;
-    background: none;
-}
-
-#sidebar h2 {
-    margin: 0 0 20px 0;
-    padding: 10px 0 10px 16px;
-    background: #BBB082;
-    text-transform: uppercase;
-    letter-spacing: .5em;
-    font-size: .9em;
-    font-weight: bold;
-    color: #FFFFFF;
+div #commentBox {
+   border: 1px #D45951 solid;
+   padding: 5px;
 }

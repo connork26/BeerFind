@@ -38,6 +38,20 @@ router.post('/userList', function (req, res) {
     )
 });
 
+router.post('/userSelect', function (req, res) {
+    db.getUsers(
+        function (err, result){
+            var html = '<select id="user">';
+            for (var i = 0; i < result.length; i++){
+                html += '<option value="' + result[i].userID + '">'
+                    + result[i].userName + '</option>';
+            }
+            html += '</select>';
+            res.send(html);
+        }
+    )
+})
+
 router.get('/userInfo', function (req, res){
     db.getUserInfo(req.query.userId,
         function(err, result) {

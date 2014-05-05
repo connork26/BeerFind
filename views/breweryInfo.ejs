@@ -1,4 +1,17 @@
 <% include header%>
+<style>
+div#beers li
+{
+    border: 0;
+    height: auto;
+}
+div#beers ul
+{
+    position: relative;
+    align-content: center;
+    margin-left: 0;
+}
+</style>
 <div id ="content">
     <h1 class="name"><%= rs[0].breweryName %></h1>
     <ul class="info">
@@ -6,7 +19,9 @@
             <p>Address: <%= rs[0].street %>, <%= rs[0].city%> <%= rs[0].state%></p>
         </li>
         <li>
-            <p>test</p>
+            <p style="padding-bottom: 0px">Beers:</p>
+            <div id="beers">
+            </div>
         </li>
         <li>
             <p>Average Rating: <span id="rating"></span></p>
@@ -36,6 +51,17 @@
                 $('span#rating').html(data.responseText.toString());
             }
         });
+
+        $.ajax({
+            url: "/breweries/beersList",
+            type: "POST",
+            contentType: "application/json",
+            processData: false,
+            data: JSON.stringify(payload),
+            complete: function (data) {
+                $('div#beers').html(data.responseText);
+            }
+        })
 
         $.ajax({
             url: "/breweries/breweryComments",

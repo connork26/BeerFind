@@ -79,5 +79,20 @@ router.post('/breweryComments', function (req, res){
     );
 })
 
+router.post('/beersList', function (req,res){
+    console.log('getting beer list for brewery ' + req.body.breweryID);
+    db.getAllBeersByaBrewery(req.body.breweryID,
+        function (err, result){
+            var responseHTML = '<ul id="beersList">'
+            for (var i = 0; i < 4 && i < result.length; i++){
+                responseHTML += '<li><a href="/beers/getBeerInfo?beerID=' + result[i].beerID
+                    + '">' + result[i].beerName + '</a></li>';
+            }
+        responseHTML += '</ul>';
+        res.send(responseHTML);
+        }
+    );
+})
+
 
 module.exports = router;

@@ -147,4 +147,13 @@ router.post('/beerComments', function (req, res){
     );
 })
 
+router.post('/submitCommentAndRating', function (req, res){
+    console.log('submitting comment with values: ' + req.body.toString());
+    db.submitCommentAndRating(req.body,
+        function (err, result) {
+            console.log('submitted');
+        }
+    )
+})
+
 module.exports = router;

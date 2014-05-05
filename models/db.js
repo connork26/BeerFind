@@ -226,7 +226,7 @@ exports.getCommentsOnABrewery = function (breweryID, callback) {
     );
 }
 
-exports.deleteUser = function (userID, callback){
+exports.deleteUser = function (userID, callback) {
     connection.query("delete from BeerComments where userID = ?", userID,
         function (err, result) {
             if (err) {
@@ -264,6 +264,34 @@ exports.deleteUser = function (userID, callback){
         }
     );
     connection.query("delete from User where userID = ?", userID,
+        function (err, result) {
+            if (err) {
+                console.log(err);
+                callback(true);
+                return;
+            }
+        }
+    );
+}
+
+exports.submitCommentAndRating = function (info, callback) {
+    var commentQuery = "insert into BeerComments (beerID, userID, comment) values ("
+        + info.beerID + ', ' + info.userID + ', "' +  info.comment + '")';
+
+    var ratingQuery = "insert into BeerRatings (beerID, userID, rating) values ("
+        + info.beerID + ", " + info.userID + ', ' + info.rating + ')';
+
+    connection.query(commentQuery,
+        function (err, result) {
+            if (err) {
+                console.log(err);
+                callback(true);
+                return;
+            }
+        }
+    );
+
+    connection.query(ratingQuery,
         function (err, result) {
             if (err) {
                 console.log(err);

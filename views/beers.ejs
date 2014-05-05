@@ -1,12 +1,23 @@
 <% include header %>
 
+<style>
+#breweries-wrap, #styles-wrap
+{
+    width: 50%;
+    height: 100px;
+}
+
+</style>
+
 <div id="content">
-    <div id="breweries-wrap">
+    <div id="breweries-wrap" style="float: left">
+        <h2>Search by Brewery: </h2>
         <div id="breweries">
         </div>
         <input type="submit" id="brewery_submit" />
     </div>
-    <div id="styles-wrap">
+    <div id="styles-wrap" style="float: right">
+        <h2>Search by Style: </h2>
         <div id="styles">
         </div>
         <input type="submit" id="style_submit" />
